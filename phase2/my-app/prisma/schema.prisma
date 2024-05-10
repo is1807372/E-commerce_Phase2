@@ -1,0 +1,40 @@
+// schema.prisma
+
+// Define the Buyer model
+model Buyer {
+  id        Int        @id @default(autoincrement())
+  name      String
+  email     String     @unique
+  location  String
+  purchases Purchase[]
+}
+
+// Define the Seller model
+model Seller {
+  id       Int       @id @default(autoincrement())
+  name     String
+  email    String    @unique
+  location String
+  products Product[]
+}
+
+// Define the Purchase model
+model Purchase {
+  id        Int     @id @default(autoincrement())
+  quantity  Int
+  productId Int
+  buyerId   Int
+  buyer     Buyer   @relation(fields: [buyerId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+// Define the Product model
+model Product {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  sellerId    Int
+  seller      Seller     @relation(fields: [sellerId], references: [id])
+  purchases   Purchase[] // Define the opposite relation field
+}
