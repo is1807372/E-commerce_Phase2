@@ -1,5 +1,16 @@
 // schema.prisma
 
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
 // Define the Buyer model
 model Buyer {
   id        Int        @id @default(autoincrement())
